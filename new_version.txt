@@ -1,0 +1,34 @@
+13.02.2013
+
+In the scope of GFTCT progect new features were introduced and bug fixes were done.
+
+To use new version one should consider following points:
+- new version of sklearn should be installed (for windows: http://sourceforge.net/projects/scikit-learn/files/scikit-learn-0.13.win32-py2.7.exe/download)
+- old ./app_libs/app_config.py can be used. I mention this because it has some custom information like gs path
+- none of old .pickle files can be used - they should be remade with new version of software (because of sklearn version update), nevertheless old .cfg files are ok and old database is ok too
+
+
+
+What have been done:
+- fixed issue with NAN company name, it was really supposed to be not a number, now it is just "NAN" string
+- convert.py is modidied so that it will not exit by exception if error with pdf file occur
+- confusion matrix is printed for every learner in learn.py
+- boosting classifier is added to learn.py and predict.py
+- any number of models and files to predict can be used now (it is actually multimodel batch prediction)
+- ensemble results are now printed in predict.py
+- report file name from predict.py is now in form report.<model>.<sample>.csv (because we can use many models and samples at once with predict.py)
+- issue with weights has been solved (it was sklearn version issue, now newest stable version should be used)
+
+
+
+How to update:
+- install new version of sklearn
+- remove all .pickle files
+- remove all .pyc files
+- keep old ./app_libs/app_config.py
+- all other *.py files replace with new versions
+
+NB: If you use predict.py in your own scripts, you should take into consideration new peculiarities of its calling:
+1. Every model file wich is passed to predict.py should have .pickle extension
+2. Every sample file should have .pdf, .txt, .text, .htm or .html extension with corresponding format
+when you call predict.py you may pass any number of models and any number of sample files (they are distinguished by extension, so order doesn't matter) and all samples will be predicted by all models so you'll have MxS number of predictions where M is the number of models and S is the number of samples.
